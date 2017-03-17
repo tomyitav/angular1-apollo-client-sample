@@ -54,6 +54,8 @@
     "angular": "^1.5.7",
     "angular-route": "^1.5.7",
     "angular1-apollo": "^0.2.1",
-    "apollo-client": "^1.0.0-rc.2"
+    "apollo-client": "^1.0.0-rc.2",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.0"
   }
 }

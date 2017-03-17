@@ -1,1 +1,54 @@
-<p>This is the partial for view 1.</p>
+<div class="row" id="mycontroller">
+    <div class="container">
+        <div class="large-10 columns">
+            <h2>Number of cars: {{cars.length}}</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="200px">Id</th>
+                    <th width="230px">Name</th>
+                    <!--<th width="25%">email</th>-->
+                    <th width="25%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="car in cars">
+                    <td><a href="#">{{car._id}}</a></td>
+                    <td>{{car.name}}</td>
+                    <td><a class="btn btn-success" ng-click="showEditForm(car)" name={{car.name}}>Edit</a>
+                        <a class="btn btn-danger" title="Sure???" ng-click="removeCar(car.name)" data-toggle="confirmation"
+                           data-singleton="true" data-popout="true">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+            <form ng-show="addFormShow">
+                <div class="form-group">
+                    <h3>Add car</h3>
+                    <label>Name:
+                        <input type="text" ng-model="car.name" placeholder="car name" class="form-control"/>
+                    </label>
+
+                    <div>
+                        <input type="submit" value="Add" class="btn btn-info" ng-disabled="!car.name" ng-click="addNewCar(car)"/>
+                    </div>
+                </div>
+            </form>
+            <form ng-show="editFormShow && !(addFormShow)">
+                <div class="form-group">
+                    <h3>Edit car</h3>
+                    <label>Name:
+                        <input type="text" ng-model="car.name" placeholder={{editedCarName}} class="form-control"/>
+                    </label>
+
+                    <div>
+                        <input type="submit" value="Edit" class="btn btn-info" ng-disabled="!car.name" ng-click="editCar(car)"/>
+                    </div>
+                </div>
+            </form>
+            <div class="small-12 large-2 columns">
+                <a class="btn btn-primary" ng-click="showAddForm()" ng-hide="addFormShow || editFormShow">+</a>
+                <a class="btn btn-primary" ng-click="hideAddForm()" ng-show="addFormShow || editFormShow">-</a>
+            </div>
+        </div>
+    </div>
+</div>
