@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
-export class View1Controller {
+export class CarsController {
 
 
     constructor() {

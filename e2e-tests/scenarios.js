@@ -4,17 +4,17 @@
 /* https://github.com/angular/protractor/blob/master/docs/toc.md */
 
 describe('my app', function () {
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function () {
+  it('should automatically redirect to /contacts when location hash/fragment is empty', function () {
     browser.get('index.html')
-    expect(browser.getLocationAbsUrl()).toMatch('/view1')
+    expect(browser.getLocationAbsUrl()).toMatch('/cars')
   })
 
-  describe('view1', function () {
+  describe('cars', function () {
     beforeEach(function () {
-      browser.get('index.html#!/view1')
+      browser.get('index.html#!/cars')
     })
 
-    it('should render view1 when user navigates to /view1', function () {
+    it('should render cars when user navigates to /cars', function () {
       expect(element.all(by.css('ng-view p')).first().getText()).toMatch(/partial for view 1/)
     })
   })
