@@ -9,6 +9,7 @@ export default angular
   .config(($routeProvider) => {
     $routeProvider.when('/cars', {
       templateUrl: 'cars/cars.html',
-      controller: CarsController
+      controller: CarsController,
+      controllerAs: '$ctrl'
     })
   })

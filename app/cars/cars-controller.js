@@ -5,6 +5,7 @@ export class CarsController {
 
 
     constructor() {
+        this.cars = [];
       console.log('Testing controller');
         const networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
         const client = new ApolloClient({ networkInterface });
@@ -19,6 +20,10 @@ export class CarsController {
         }).then(result => {
             console.log('got data', result);
         });
+    }
+
+    getCar() {
+        return this.cars;
     }
 
 }
