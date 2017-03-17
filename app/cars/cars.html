@@ -29,7 +29,7 @@
                     </label>
 
                     <div>
-                        <input type="submit" value="Add" class="btn btn-info" ng-disabled="!$ctrl.car.name" ng-click="addNewCar(car)"/>
+                        <input type="submit" value="Add" class="btn btn-info" ng-disabled="!$ctrl.car.name" ng-click="$ctrl.addNewCar($ctrl.car)"/>
                     </div>
                 </div>
             </form>

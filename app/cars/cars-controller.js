@@ -54,17 +54,14 @@ export class CarsController {
         console.log(car);
         var query = {"query" : 'mutation {updateCar(currName : "", newName: '+ '"'+car.name + '"'+ ') {name}}'};
         console.log(query);
-        http({method  : 'POST',
+        this.http({method  : 'POST',
             url     : 'http://localhost:8080/graphql',
             data    : query, //forms user object
             headers : {'Content-Type': 'application/json'}
-        }).success(function() {
+        }).then(() => {
             this.fetchCarsList();
             this.car.name = ''
-        }).error(function() {
-            // this.setError('Could not add a new car');
-            console.log("Error posting JSON")
-        });
+        })
         this.addFormShow = false;
     };
 
