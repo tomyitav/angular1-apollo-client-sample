@@ -52,18 +52,22 @@ export class CarsController {
     }
 
     addNewCar (car) {
-        console.log(car);
-        var query = {"query" : 'mutation {updateCar(currName : "", newName: '+ '"'+car.name + '"'+ ') {name}}'};
-        console.log(query);
-        this.http({method  : 'POST',
-            url     : 'http://localhost:8080/graphql',
-            data    : query, //forms user object
-            headers : {'Content-Type': 'application/json'}
-        }).then(() => {
+        let quatedName = '"' + this.car.name + '"';
+        this.client.mutate({
+            mutation: gql`
+                    mutation {
+                    updateCar(currName : "", newName : ${quatedName}) {
+                        name
+                    }
+                }
+            `,
+        }).then(result => {
+            console.log('got data', result);
             this.fetchCarsList();
             this.car.name = ''
-        })
-        this.addFormShow = false;
+            this.addFormShow = false;
+            this.scope.$apply();
+        });
     };
 
     editCar (car) {
