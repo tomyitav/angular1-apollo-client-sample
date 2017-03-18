@@ -4,13 +4,15 @@ import * as http from 'http';
 
 export class CarsController {
 
-    constructor($http) {
+    constructor($http, $scope) {
         this.http = $http
+        this.scope= $scope
         this.car = {};
         this.cars = [];
       // console.log('Testing controller');
         let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
         this.client = new ApolloClient({ networkInterface });
+        this.fetchCarsList()
     }
 
     fetchCarsList() {
@@ -24,13 +26,8 @@ export class CarsController {
                     }
                 }`
         }).then(result => {
-            console.log('got data', result);
-            console.log('got data', result.data.car);
             this.addAllQueryResults(result);
-            console.log('printing cars...', this.cars);
-            console.log('printing cars...', this.cars.length);
-            console.log('printing cars...', this.cars[0]);
-            console.log('printing cars...', this.cars[0].name);
+            this.scope.$apply();
         });
     };
 
