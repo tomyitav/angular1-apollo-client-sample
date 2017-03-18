@@ -9,14 +9,12 @@ export class CarsController {
         this.scope= $scope
         this.car = {};
         this.cars = [];
-      // console.log('Testing controller');
         let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
         this.client = new ApolloClient({ networkInterface });
         this.fetchCarsList()
     }
 
     fetchCarsList() {
-        // this.cars = [];
         this.client.query({
             query: gql`
                 query car{
@@ -33,7 +31,6 @@ export class CarsController {
 
     addAllQueryResults(result) {
         this.cars = {};
-        let hashKey = 0
         let immutableCars = result.data.car;
         this.cars = JSON.parse( JSON.stringify( immutableCars ));
     }
