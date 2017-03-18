@@ -9,32 +9,31 @@ export class CarsController {
         this.car = {};
         this.cars = [];
       // console.log('Testing controller');
-      //   const networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
-      //   const client = new ApolloClient({ networkInterface });
-      //   client.query({
-      //       query: gql`
-      //           query getHeroes {
-      //               car{
-      //                   name
-      //               }
-      //           }
-      //       `
-      //   }).then(result => {
-      //       console.log('got data', result);
-      //   });
-      //   this.fetchCarsList()
+        let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
+        this.client = new ApolloClient({ networkInterface });
     }
 
     fetchCarsList() {
-        var query = {"query": "{car{_id, name}}"}
-        this.http({method  : 'POST',
-            url     : 'http://localhost:8080/graphql',
-            data    : query, //forms user object
-            headers : {'Content-Type': 'application/json'}
-        }).then((data) => {
-            this.cars = data.data.data.car;
-        })
+        // this.cars = [];
+        this.client.query({
+            query: gql`
+                query car{
+                    car{
+                        _id
+                        name
+                    }
+                }`
+        }).then(result => {
+            console.log('got data', result);
+            console.log('got data', result.data.car);
+            this.cars = result.data.car;
+            console.log('printing cars...', this.cars);
+            console.log('printing cars...', this.cars.length);
+            console.log('printing cars...', this.cars[0]);
+            console.log('printing cars...', this.cars[0].name);
+        });
     };
+
     // console.log($scope.contacts);
     showAddForm (){
         this.addFormShow = true;
