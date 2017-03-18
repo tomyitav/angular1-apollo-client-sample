@@ -26,7 +26,7 @@ export class CarsController {
         }).then(result => {
             console.log('got data', result);
             console.log('got data', result.data.car);
-            this.cars = result.data.car;
+            this.addAllQueryResults(result);
             console.log('printing cars...', this.cars);
             console.log('printing cars...', this.cars.length);
             console.log('printing cars...', this.cars[0]);
@@ -34,8 +34,16 @@ export class CarsController {
         });
     };
 
-    // console.log($scope.contacts);
+    addAllQueryResults(result) {
+        this.cars = {};
+        let hashKey = 0
+        let immutableCars = result.data.car;
+        this.cars = JSON.parse( JSON.stringify( immutableCars ));
+    }
+
     showAddForm (){
+        console.log('Logging cars...');
+        console.log(this.cars);
         this.addFormShow = true;
     }
     hideAddForm (){
