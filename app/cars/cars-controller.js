@@ -1,11 +1,13 @@
 import gql from 'graphql-tag';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import * as http from 'http';
+// import ApolloWrapperService from 'apollo/apollo-wrapper-service'
 
 export class CarsController {
 
-    constructor($scope) {
+    constructor($scope, ApolloWrapperService) {
         this.scope= $scope
+        this.ApolloWrapperService= ApolloWrapperService;
         this.car = {};
         this.cars = [];
         let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
@@ -14,6 +16,7 @@ export class CarsController {
     }
 
     fetchCarsList() {
+        console.log(this.ApolloWrapperService.getFullName())
         this.client.query({
             query: gql`
                 query car{
