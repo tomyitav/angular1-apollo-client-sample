@@ -5,7 +5,6 @@ import * as http from 'http';
 export class CarsController {
 
     constructor($http, $scope) {
-        this.http = $http
         this.scope= $scope
         this.car = {};
         this.cars = [];
