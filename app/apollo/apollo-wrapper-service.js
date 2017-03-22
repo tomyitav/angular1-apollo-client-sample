@@ -1,4 +1,4 @@
-import IHttpService from 'angular'
+import angular from 'angular'
 
 class ApolloWrapperService {
     // static $inject =
@@ -20,4 +20,3 @@ class ApolloWrapperService {
 }
 
 export default ApolloWrapperService
-

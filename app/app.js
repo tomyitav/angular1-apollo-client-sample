@@ -2,6 +2,7 @@ import angular from 'angular'
 import ngRoute from 'angular-route'
 
 import cars from 'cars/cars'
+import apolloServ from 'apollo/apollo-wrapper-service-module'
 import view2 from 'view2/view2'
 import version from 'components/version/version'
 import ApolloWrapperService from 'apollo/apollo-wrapper-service'
@@ -11,8 +12,8 @@ var myApp = angular
     ngRoute,
     version.name,
     cars.name,
+      apolloServ.name,
     view2.name,
-      // ApolloWrapperService
   ])
   .config(($locationProvider, $routeProvider) => {
     $locationProvider.hashPrefix('!')
@@ -20,7 +21,6 @@ var myApp = angular
       redirectTo: '/cars'
     })
   })
-  .service('ApolloWrapperService', ['$http', ($http) => new ApolloWrapperService($http)]);
 
 angular
   .element(document)
