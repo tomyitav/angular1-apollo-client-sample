@@ -1,12 +1,23 @@
+import IHttpService from 'angular'
 
-export default class ApolloWrapperService {
-    constructor() {
-        // this.$http = $http;
+class ApolloWrapperService {
+    // static $inject =
+    /*@ngInject*/
+    constructor($http) {
+        console.log($http)
+        this.$http = $http;
+        console.log(this.$http)
     }
 
     getFullName() {
+        this.$http.get('www.example.com').then((data) => {
+            console.log('got data');
+            console.log(data);
+        })
         return 'Hiiii!!!';
     }
+
 }
 
-// ApolloWrapperService.$inject = ['$http'];
+export default ApolloWrapperService
+

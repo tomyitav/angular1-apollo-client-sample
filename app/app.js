@@ -20,7 +20,7 @@ var myApp = angular
       redirectTo: '/cars'
     })
   })
-  .service('ApolloWrapperService', () => new ApolloWrapperService);
+  .service('ApolloWrapperService', ['$http', ($http) => new ApolloWrapperService($http)]);
 
 angular
   .element(document)
