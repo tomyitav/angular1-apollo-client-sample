@@ -1,4 +1,6 @@
 import angular from 'angular'
+import gql from 'graphql-tag';
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
 
 class ApolloWrapperService {
     // static $inject =
@@ -7,14 +9,33 @@ class ApolloWrapperService {
         console.log($http)
         this.$http = $http;
         console.log(this.$http)
+        let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
+        this.client = new ApolloClient({ networkInterface });
     }
 
-    getFullName() {
-        this.$http.get('www.example.com').then((data) => {
-            console.log('got data');
-            console.log(data);
+    getAllCars() {
+        return this.client.query({
+            query: gql`
+                query car{
+                    car{
+                        _id
+                        name
+                    }
+                }`
         })
-        return 'Hiiii!!!';
+    }
+
+    addNewCar (car) {
+        let quatedName = '"' + car.name + '"';
+        return this.client.mutate({
+            mutation: gql`
+                mutation {
+                    updateCar(currName : "", newName : ${quatedName}) {
+                        name
+                    }
+                }
+            `,
+        })
     }
 
 }

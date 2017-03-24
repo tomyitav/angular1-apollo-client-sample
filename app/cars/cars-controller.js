@@ -16,16 +16,7 @@ export class CarsController {
     }
 
     fetchCarsList() {
-        console.log(this.ApolloWrapperService.getFullName())
-        this.client.query({
-            query: gql`
-                query car{
-                    car{
-                        _id
-                        name
-                    }
-                }`
-        }).then(result => {
+        this.ApolloWrapperService.getAllCars().then(result => {
             this.addAllQueryResults(result);
             this.scope.$apply();
         });
@@ -54,16 +45,7 @@ export class CarsController {
     }
 
     addNewCar (car) {
-        let quatedName = '"' + this.car.name + '"';
-        this.client.mutate({
-            mutation: gql`
-                    mutation {
-                    updateCar(currName : "", newName : ${quatedName}) {
-                        name
-                    }
-                }
-            `,
-        }).then(result => {
+        this.ApolloWrapperService.addNewCar(this.car).then(result => {
             console.log('got data', result);
             this.fetchCarsList();
             this.car.name = ''
