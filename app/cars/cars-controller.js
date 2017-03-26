@@ -56,16 +56,11 @@ export class CarsController {
     editCar (car) {
         car.id = this.editedCarId;
         console.log(car);
-        http({method  : 'PUT',
-            url     : 'http://localhost:8080/cars/updateCar',
-            data    : car, //forms user object
-            headers : {'Content-Type': 'application/json'}
-        }).success(function() {
+        this.ApolloWrapperService.editCar(this.editedCarName, this.car.name).then(result => {
+            console.log('got data', result);
             this.fetchCarsList();
             this.car.name = ''
-        }).error(function() {
-            // this.setError('Could not add a new car');
-            console.log("Error posting JSON")
+            this.addFormShow = false;
         });
         this.editFormShow = false;
     };

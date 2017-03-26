@@ -36,6 +36,20 @@ class ApolloWrapperService {
         })
     }
 
+    editCar (previousName, currentName) {
+        let prevQuatedName = '"' + previousName + '"';
+        let currentQuatedName = '"' + currentName + '"';
+        return this.client.mutate({
+            mutation: gql`
+                mutation {
+                    updateCar(currName : ${prevQuatedName}, newName : ${currentQuatedName}) {
+                        name
+                    }
+                }
+            `,
+        })
+    }
+
 }
 
 export default ApolloWrapperService
