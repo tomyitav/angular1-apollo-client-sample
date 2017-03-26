@@ -6,9 +6,7 @@ class ApolloWrapperService {
     // static $inject =
     /*@ngInject*/
     constructor($http) {
-        console.log($http)
         this.$http = $http;
-        console.log(this.$http)
         let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
         this.client = new ApolloClient({ networkInterface });
     }
