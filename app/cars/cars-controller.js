@@ -50,7 +50,6 @@ export class CarsController {
             this.fetchCarsList();
             this.car.name = ''
             this.addFormShow = false;
-            this.scope.$apply();
         });
     };
 
