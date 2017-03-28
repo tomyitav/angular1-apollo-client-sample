@@ -56,6 +56,7 @@
     "angular1-apollo": "^0.2.1",
     "apollo-client": "^1.0.0-rc.2",
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.0"
+    "jquery": "^3.2.0",
+    "subscriptions-transport-ws": "^0.5.5-alpha.0"
   }
 }
