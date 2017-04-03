@@ -73,12 +73,10 @@ export class CarsController {
     }
 
     removeCar (name) {
-        $('[data-toggle="confirmation"]').confirmation({
-            onConfirm: function () {
-                console.log("logging before delete car...")
-                this.removeLogic(name);
-            }
-        });
+        this.ApolloWrapperService.deleteCar(name)
+            .then(result => {
+                console.log("After delete - ", name)
+            })
         this.car.name = '';
     }
 };

@@ -23,8 +23,21 @@ class ApolloWrapperService {
         this.client = new ApolloClient({
             networkInterface: networkInterfaceWithSubscriptions
         });
-        // this.client.networkInterface._uri = 'http://localhost:8080/graphql';
-        console.log(this.client.networkInterface._uri)
+
+
+        this.client.subscribe({
+            query: gql`
+                subscription {
+                    carUpdated {
+                        name
+                    }
+                }`,
+            variables: {},
+            // operationName: 'carUpdated'
+        }, (errs, res) => {
+            console.log('After subscription results...')
+            console.log(res);
+        });
     }
 
     getAllCars() {
@@ -59,6 +72,19 @@ class ApolloWrapperService {
             mutation: gql`
                 mutation {
                     updateCar(currName : ${prevQuatedName}, newName : ${currentQuatedName}) {
+                        name
+                    }
+                }
+            `,
+        })
+    }
+    deleteCar (name) {
+        let quatedName = '"' + name + '"';
+        return this.client.mutate({
+            mutation: gql`
+                mutation {
+                    deleteCar(name : "sub") {
+                        _id
                         name
                     }
                 }
