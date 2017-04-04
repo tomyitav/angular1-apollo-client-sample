@@ -83,7 +83,7 @@ class ApolloWrapperService {
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    deleteCar(name : "sub") {
+                    deleteCar(name : ${quatedName}) {
                         _id
                         name
                     }
