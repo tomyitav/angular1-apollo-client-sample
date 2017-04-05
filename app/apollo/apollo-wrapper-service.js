@@ -24,24 +24,33 @@ class ApolloWrapperService {
             networkInterface: networkInterfaceWithSubscriptions
         });
 
-
-        this.client.subscribe({
-            query: gql`
-                subscription onCarUpdated{
-                    carUpdated {
-                        name
-                    }
-                }`,
-            variables: {},
-            // operationName: 'carUpdated'
-        }).subscribe({
-            next(data) {
-                console.log('Got data- ', data);
-            },
-            error(err) {
-                console.log('Error- ', err);
-            }
-        });
+        this.clientSubscription = this.client.subscribe({
+                query: gql`
+                    subscription onCarUpdated{
+                        carUpdated {
+                            name
+                        }
+                    }`,
+                variables: {},
+                // operationName: 'carUpdated'
+            })
+        // this.client.subscribe({
+        //     query: gql`
+        //         subscription onCarUpdated{
+        //             carUpdated {
+        //                 name
+        //             }
+        //         }`,
+        //     variables: {},
+        //     // operationName: 'carUpdated'
+        // }).subscribe({
+        //     next(data) {
+        //         console.log('Got data- ', data);
+        //     },
+        //     error(err) {
+        //         console.log('Error- ', err);
+        //     }
+        // });
     }
 
     getAllCars() {
@@ -94,6 +103,10 @@ class ApolloWrapperService {
                 }
             `,
         })
+    }
+
+    subscribeToCars() {
+        return this.clientSubscription
     }
 
 }

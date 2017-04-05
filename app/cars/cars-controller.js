@@ -10,7 +10,8 @@ export class CarsController {
         this.ApolloWrapperService= ApolloWrapperService;
         this.car = {};
         this.cars = [];
-        this.fetchCarsList()
+        this.fetchCarsList();
+        this.startSubscriptions();
     }
 
     fetchCarsList() {
@@ -19,6 +20,18 @@ export class CarsController {
             this.scope.$apply();
         });
     };
+
+    startSubscriptions() {
+        this.ApolloWrapperService.subscribeToCars()
+            .subscribe({
+                next(data) {
+                    console.log('Got data- ', data);
+                },
+                error(err) {
+                    console.log('Error- ', err);
+                }
+            });
+    }
 
     addAllQueryResults(result) {
         this.cars = {};
@@ -44,7 +57,6 @@ export class CarsController {
 
     addNewCar (car) {
         this.ApolloWrapperService.addNewCar(this.car).then(result => {
-            console.log('got data', result);
             this.fetchCarsList();
             this.car.name = ''
             this.addFormShow = false;
@@ -55,7 +67,6 @@ export class CarsController {
         car.id = this.editedCarId;
         console.log(car);
         this.ApolloWrapperService.editCar(this.editedCarName, this.car.name).then(result => {
-            console.log('got data', result);
             this.fetchCarsList();
             this.car.name = ''
             this.addFormShow = false;
