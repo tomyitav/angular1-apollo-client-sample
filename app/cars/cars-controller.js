@@ -26,6 +26,9 @@ export class CarsController {
             .subscribe({
                 next(data) {
                     console.log('Got data- ', data);
+                    console.log('Pushing to car list...');
+                    this.cars.push(data);
+                    this.scope.$apply();
                 },
                 error(err) {
                     console.log('Error- ', err);
@@ -40,8 +43,6 @@ export class CarsController {
     }
 
     showAddForm (){
-        console.log('Logging cars...');
-        console.log(this.cars);
         this.addFormShow = true;
     }
     hideAddForm (){
