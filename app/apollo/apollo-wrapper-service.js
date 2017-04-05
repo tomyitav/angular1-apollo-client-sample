@@ -27,16 +27,20 @@ class ApolloWrapperService {
 
         this.client.subscribe({
             query: gql`
-                subscription {
+                subscription onCarUpdated{
                     carUpdated {
                         name
                     }
                 }`,
             variables: {},
             // operationName: 'carUpdated'
-        }, (errs, res) => {
-            console.log('After subscription results...')
-            console.log(res);
+        }).subscribe({
+            next(data) {
+                console.log('Got data- ', data);
+            },
+            error(err) {
+                console.log('Error- ', err);
+            }
         });
     }
 

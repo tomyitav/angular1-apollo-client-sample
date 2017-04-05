@@ -10,8 +10,6 @@ export class CarsController {
         this.ApolloWrapperService= ApolloWrapperService;
         this.car = {};
         this.cars = [];
-        let networkInterface = createNetworkInterface({uri: 'http://localhost:8080/graphql'});
-        this.client = new ApolloClient({ networkInterface });
         this.fetchCarsList()
     }
 
