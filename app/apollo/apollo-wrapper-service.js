@@ -34,23 +34,6 @@ class ApolloWrapperService {
                 variables: {},
                 // operationName: 'carUpdated'
             })
-        // this.client.subscribe({
-        //     query: gql`
-        //         subscription onCarUpdated{
-        //             carUpdated {
-        //                 name
-        //             }
-        //         }`,
-        //     variables: {},
-        //     // operationName: 'carUpdated'
-        // }).subscribe({
-        //     next(data) {
-        //         console.log('Got data- ', data);
-        //     },
-        //     error(err) {
-        //         console.log('Error- ', err);
-        //     }
-        // });
     }
 
     getAllCars() {
