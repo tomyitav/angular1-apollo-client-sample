@@ -28,6 +28,7 @@ class ApolloWrapperService {
                 query: gql`
                     subscription onCarUpdated{
                         carUpdated {
+                            _id
                             name
                         }
                     }`,

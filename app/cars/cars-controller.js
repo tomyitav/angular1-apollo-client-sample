@@ -28,7 +28,7 @@ export class CarsController {
                 next: data => {
                     console.log('Got data- ', data);
                     console.log('Pushing to car list...');
-                    console.log(this.cars)
+                    this.updateCarsByUpdate(data.carUpdated);
                     // this.cars.push(data);
                     // this.scope.$apply();
                     return data;
@@ -37,8 +37,17 @@ export class CarsController {
                     console.log('Error- ', err);
                 }
             })
+    }
 
-
+    updateCarsByUpdate(updatedCar) {
+        console.log(this.cars)
+        console.log(updatedCar)
+        this.cars.forEach(car => {
+            if(car._id === updatedCar._id) {
+                car.name = updatedCar.name;
+                this.scope.$apply();
+            }
+        })
     }
 
     addAllQueryResults(result) {
