@@ -11,7 +11,7 @@ export class CarsController {
         this.car = {};
         this.cars = [];
         this.fetchCarsList();
-        this.startSubscriptions();
+        this.startSubscriptions(5);
     }
 
     fetchCarsList() {
@@ -21,19 +21,24 @@ export class CarsController {
         });
     };
 
-    startSubscriptions() {
+    startSubscriptions(x) {
+        console.log('Subscription called with x- ', x)
         this.ApolloWrapperService.subscribeToCars()
             .subscribe({
-                next(data) {
+                next: data => {
                     console.log('Got data- ', data);
                     console.log('Pushing to car list...');
-                    this.cars.push(data);
-                    this.scope.$apply();
+                    console.log(this.cars)
+                    // this.cars.push(data);
+                    // this.scope.$apply();
+                    return data;
                 },
-                error(err) {
+                error: (err) => {
                     console.log('Error- ', err);
                 }
-            });
+            })
+
+
     }
 
     addAllQueryResults(result) {
