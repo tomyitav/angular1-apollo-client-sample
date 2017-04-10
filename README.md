@@ -8,6 +8,7 @@ This project was tested with the latest version of nodeJS and npm, please make s
 - run `npm install` to install dependencies
 - run `npm start` to fire up dev server
 - open browser to [`http://localhost:3000`](http://localhost:3000)
+- Server side is implemented in [`https://github.com/tomyitav/GraphQlTransport`](https://github.com/tomyitav/GraphQlTransport)
 
 ## Build
 
