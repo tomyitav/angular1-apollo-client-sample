@@ -24,17 +24,32 @@ class ApolloWrapperService {
             networkInterface: networkInterfaceWithSubscriptions
         });
 
-        this.clientSubscription = this.client.subscribe({
-                query: gql`
-                    subscription onCarUpdated{
-                        carUpdated {
-                            _id
-                            name
-                        }
-                    }`,
-                variables: {},
-                // operationName: 'carUpdated'
-            })
+        this.createServiceSubscriptions();
+    }
+    createServiceSubscriptions(){
+        this.clientUpdateSubscription = this.client.subscribe({
+            query: gql`
+    
+                subscription onCarUpdated{
+                            carUpdated {
+                                _id
+                                name
+                            }
+                        }`,
+            variables: {},
+        // operationName: 'carUpdated'
+        })
+        this.clientAddSubscription = this.client.subscribe({
+            query: gql`
+                subscription onCarAdded{
+                            carAdded {
+                                _id
+                                name
+                            }
+                        }`,
+            variables: {},
+        // operationName: 'carUpdated'
+        })
     }
 
     getAllCars() {
@@ -54,7 +69,7 @@ class ApolloWrapperService {
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    updateCar(currName : "", newName : ${quatedName}) {
+                    addCar(name : ${quatedName}) {
                         name
                     }
                 }
@@ -89,8 +104,11 @@ class ApolloWrapperService {
         })
     }
 
-    subscribeToCars() {
-        return this.clientSubscription
+    subscribeToUpdates() {
+        return this.clientUpdateSubscription;
+    }
+    subscribeToAdds() {
+        return this.clientAddSubscription;
     }
 
 }

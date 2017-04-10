@@ -11,7 +11,7 @@ export class CarsController {
         this.car = {};
         this.cars = [];
         this.fetchCarsList();
-        this.startSubscriptions(5);
+        this.startSubscriptions();
     }
 
     fetchCarsList() {
@@ -21,9 +21,13 @@ export class CarsController {
         });
     };
 
-    startSubscriptions(x) {
-        console.log('Subscription called with x- ', x)
-        this.ApolloWrapperService.subscribeToCars()
+    startSubscriptions() {
+        this.subscribeToUpdates();
+        this.subscribeToAdds();
+    }
+
+    subscribeToUpdates() {
+        this.ApolloWrapperService.subscribeToUpdates()
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
@@ -31,6 +35,21 @@ export class CarsController {
                     this.updateCarsByUpdate(data.carUpdated);
                     // this.cars.push(data);
                     // this.scope.$apply();
+                    return data;
+                },
+                error: (err) => {
+                    console.log('Error- ', err);
+                }
+            })
+    }
+    subscribeToAdds() {
+        this.ApolloWrapperService.subscribeToAdds()
+            .subscribe({
+                next: data => {
+                    console.log('Got data- ', data);
+                    console.log('Addddd to car list...');
+                    this.cars.push(data.carAdded);
+                    this.scope.$apply();
                     return data;
                 },
                 error: (err) => {
