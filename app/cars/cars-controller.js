@@ -24,6 +24,7 @@ export class CarsController {
     startSubscriptions() {
         this.subscribeToUpdates();
         this.subscribeToAdds();
+        this.subscribeToDeletes();
     }
 
     subscribeToUpdates() {
@@ -50,6 +51,20 @@ export class CarsController {
                     console.log('Addddd to car list...');
                     this.cars.push(data.carAdded);
                     this.scope.$apply();
+                    return data;
+                },
+                error: (err) => {
+                    console.log('Error- ', err);
+                }
+            })
+    }
+    subscribeToDeletes() {
+        this.ApolloWrapperService.subscribeToDeletes()
+            .subscribe({
+                next: data => {
+                    console.log('Got data- ', data);
+                    console.log('Removing from cars list...');
+                    // this.cars.push(data.carAdded);
                     return data;
                 },
                 error: (err) => {

@@ -37,7 +37,6 @@ class ApolloWrapperService {
                             }
                         }`,
             variables: {},
-        // operationName: 'carUpdated'
         })
         this.clientAddSubscription = this.client.subscribe({
             query: gql`
@@ -48,7 +47,16 @@ class ApolloWrapperService {
                             }
                         }`,
             variables: {},
-        // operationName: 'carUpdated'
+        })
+        this.clientDeleteSubscription = this.client.subscribe({
+            query: gql`
+                subscription onCarDeleted{
+                        carDeleted {
+                                _id
+                                name
+                            }
+                        }`,
+            variables: {},
         })
     }
 
@@ -109,6 +117,9 @@ class ApolloWrapperService {
     }
     subscribeToAdds() {
         return this.clientAddSubscription;
+    }
+    subscribeToDeletes() {
+        return this.clientDeleteSubscription;
     }
 
 }
