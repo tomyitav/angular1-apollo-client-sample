@@ -64,6 +64,8 @@ export class CarsController {
                 next: data => {
                     console.log('Got data- ', data);
                     console.log('Removing from cars list...');
+                    console.log(data.carDeleted);
+                    this.updateCarsByDelete(data.carDeleted)
                     // this.cars.push(data.carAdded);
                     return data;
                 },
@@ -74,8 +76,6 @@ export class CarsController {
     }
 
     updateCarsByUpdate(updatedCar) {
-        console.log(this.cars)
-        console.log(updatedCar)
         this.cars.forEach(car => {
             if(car._id === updatedCar._id) {
                 car.name = updatedCar.name;
@@ -83,9 +83,24 @@ export class CarsController {
             }
         })
     }
+    updateCarsByDelete(deletedCar) {
+        console.log(this.cars)
+        console.log(deletedCar)
+        let indexToRemove = 0;
+        let currentIndex = 0;
+        this.cars.forEach(car => {
+            if(car._id === deletedCar._id) {
+                console.log('Going to delete car - ', car);
+                indexToRemove = currentIndex;
+            }
+            currentIndex++;
+        })
+        this.cars.splice(indexToRemove, 1);
+        this.scope.$apply();
+    }
 
     addAllQueryResults(result) {
-        this.cars = {};
+        this.cars = [];
         let immutableCars = result.data.car;
         this.cars = JSON.parse( JSON.stringify( immutableCars ));
     }
