@@ -34,8 +34,6 @@ export class CarsController {
                     console.log('Got data- ', data);
                     console.log('Pushing to car list...');
                     this.updateCarsByUpdate(data.carUpdated);
-                    // this.cars.push(data);
-                    // this.scope.$apply();
                     return data;
                 },
                 error: (err) => {
@@ -66,7 +64,6 @@ export class CarsController {
                     console.log('Removing from cars list...');
                     console.log(data.carDeleted);
                     this.updateCarsByDelete(data.carDeleted)
-                    // this.cars.push(data.carAdded);
                     return data;
                 },
                 error: (err) => {
@@ -84,17 +81,8 @@ export class CarsController {
         })
     }
     updateCarsByDelete(deletedCar) {
-        console.log(this.cars)
-        console.log(deletedCar)
         let indexToRemove = 0;
-        let currentIndex = 0;
-        this.cars.forEach(car => {
-            if(car._id === deletedCar._id) {
-                console.log('Going to delete car - ', car);
-                indexToRemove = currentIndex;
-            }
-            currentIndex++;
-        })
+        indexToRemove = this.cars.findIndex((car) => car._id === deletedCar._id);
         this.cars.splice(indexToRemove, 1);
         this.scope.$apply();
     }
