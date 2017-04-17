@@ -1,14 +1,16 @@
 import angular from 'angular'
-import ngRoute from 'angular-route'
+import angularUIRouter from 'angular-ui-router';
 import {View2Controller} from './view2-controller'
 
 export default angular
   .module('myApp.view2', [
-    ngRoute
+      angularUIRouter
   ])
-  .config(($routeProvider) => {
-    $routeProvider.when('/view2', {
-      templateUrl: 'view2/view2.html',
-      controller: View2Controller
+  .config(($stateProvider) => {
+      $stateProvider.state('view2', {
+        url: '/view2',
+        templateUrl: 'view2/view2.html',
+        controller: View2Controller,
+        controllerAs: '$ctrl'
     })
   })
