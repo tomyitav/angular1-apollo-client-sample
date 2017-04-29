@@ -3,7 +3,7 @@ import ngRoute from 'angular-route'
 import angularUIRouter from 'angular-ui-router';
 import cars from 'cars/cars'
 import apolloServ from 'apollo/apollo-wrapper-service-module'
-import view2 from 'view2/view2'
+import trains from 'trains/train'
 import version from 'components/version/version'
 
 var myApp = angular
@@ -13,7 +13,7 @@ var myApp = angular
     version.name,
     cars.name,
       apolloServ.name,
-    view2.name,
+      trains.name,
   ])
   .config(($locationProvider, $stateProvider, $urlRouterProvider) => {
     $locationProvider.hashPrefix('!')
