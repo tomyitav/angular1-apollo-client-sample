@@ -1,8 +1,3 @@
-import gql from 'graphql-tag';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
-import * as http from 'http';
-// import ApolloWrapperService from 'apollo/apollo-wrapper-service'
-
 export class CarsController {
 
     constructor($scope, ApolloWrapperService) {
@@ -125,13 +120,6 @@ export class CarsController {
         });
         this.editFormShow = false;
     };
-
-    removeLogic(name) {
-        http.delete("http://localhost:8080/cars/removeCar/" + name).success(function (res) {
-            console.log(res)
-            this.fetchCarsList();
-        });
-    }
 
     removeCar (name) {
         this.ApolloWrapperService.deleteCar(name)
