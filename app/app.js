@@ -2,7 +2,8 @@ import angular from 'angular'
 import ngRoute from 'angular-route'
 import angularUIRouter from 'angular-ui-router';
 import cars from 'cars/cars'
-import apolloServ from 'apollo/apollo-wrapper-service-module'
+import apolloCarServ from 'apollo/apollo-car-service-module'
+import apolloTrainServ from 'apollo/apollo-train-service-module'
 import trains from 'trains/train'
 import version from 'components/version/version'
 
@@ -12,7 +13,8 @@ var myApp = angular
       angularUIRouter,
     version.name,
     cars.name,
-      apolloServ.name,
+      apolloCarServ.name,
+      apolloTrainServ.name,
       trains.name,
   ])
   .config(($locationProvider, $stateProvider, $urlRouterProvider) => {
