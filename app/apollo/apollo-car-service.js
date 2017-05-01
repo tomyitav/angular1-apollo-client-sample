@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import {SubscriptionClient, addGraphQLSubscriptions} from 'subscriptions-transport-ws';
 
-class ApolloWrapperService {
+class ApolloCarService {
     // static $inject =
     /*@ngInject*/
     constructor($http) {
@@ -124,4 +124,4 @@ class ApolloWrapperService {
 
 }
 
-export default ApolloWrapperService
+export default ApolloCarService

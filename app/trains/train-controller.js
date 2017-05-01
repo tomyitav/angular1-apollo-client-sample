@@ -1,7 +1,7 @@
 export class TrainController {
-    constructor($scope, ApolloWrapperService) {
+    constructor($scope, ApolloCarService) {
         this.scope= $scope
-        this.ApolloWrapperService= ApolloWrapperService;
+        this.ApolloCarService= ApolloCarService;
         this.train= {};
         this.trains = [];
     }

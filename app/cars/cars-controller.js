@@ -1,8 +1,8 @@
 export class CarsController {
 
-    constructor($scope, ApolloWrapperService) {
+    constructor($scope, ApolloCarService) {
         this.scope= $scope
-        this.ApolloWrapperService= ApolloWrapperService;
+        this.ApolloCarService= ApolloCarService;
         this.car = {};
         this.cars = [];
         this.fetchCarsList();
@@ -10,7 +10,7 @@ export class CarsController {
     }
 
     fetchCarsList() {
-        this.ApolloWrapperService.getAllCars().then(result => {
+        this.ApolloCarService.getAllCars().then(result => {
             this.addAllQueryResults(result);
             this.scope.$apply();
         });
@@ -23,7 +23,7 @@ export class CarsController {
     }
 
     subscribeToUpdates() {
-        this.ApolloWrapperService.subscribeToUpdates()
+        this.ApolloCarService.subscribeToUpdates()
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
@@ -37,7 +37,7 @@ export class CarsController {
             })
     }
     subscribeToAdds() {
-        this.ApolloWrapperService.subscribeToAdds()
+        this.ApolloCarService.subscribeToAdds()
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
@@ -52,7 +52,7 @@ export class CarsController {
             })
     }
     subscribeToDeletes() {
-        this.ApolloWrapperService.subscribeToDeletes()
+        this.ApolloCarService.subscribeToDeletes()
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
@@ -103,7 +103,7 @@ export class CarsController {
     }
 
     addNewCar (car) {
-        this.ApolloWrapperService.addNewCar(this.car).then(result => {
+        this.ApolloCarService.addNewCar(this.car).then(result => {
             this.fetchCarsList();
             this.car.name = ''
             this.addFormShow = false;
@@ -113,7 +113,7 @@ export class CarsController {
     editCar (car) {
         car.id = this.editedCarId;
         console.log(car);
-        this.ApolloWrapperService.editCar(this.editedCarName, this.car.name).then(result => {
+        this.ApolloCarService.editCar(this.editedCarName, this.car.name).then(result => {
             this.fetchCarsList();
             this.car.name = ''
             this.addFormShow = false;
@@ -122,7 +122,7 @@ export class CarsController {
     };
 
     removeCar (name) {
-        this.ApolloWrapperService.deleteCar(name)
+        this.ApolloCarService.deleteCar(name)
             .then(result => {
                 console.log("After delete - ", name)
             })
