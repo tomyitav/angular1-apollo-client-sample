@@ -34,6 +34,7 @@ class ApolloCarService {
                             carUpdated {
                                 _id
                                 name
+                                speed
                             }
                         }`,
             variables: {},
@@ -44,6 +45,7 @@ class ApolloCarService {
                             carAdded {
                                 _id
                                 name
+                                speed
                             }
                         }`,
             variables: {},
@@ -67,32 +69,35 @@ class ApolloCarService {
                     car{
                         _id
                         name
+                        speed
                     }
                 }`
         })
     }
 
     addNewCar (car) {
-        let quatedName = '"' + car.name + '"';
+        let quotedName = '"' + car.name + '"';
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    addCar(name : ${quatedName}) {
+                    addCar(name: ${quotedName}, speed: ${car.speed}) {
                         name
+                        speed
                     }
                 }
             `,
         })
     }
 
-    editCar (previousName, currentName) {
-        let prevQuatedName = '"' + previousName + '"';
-        let currentQuatedName = '"' + currentName + '"';
+    editCar(previousName, currentName, currentSpeed) {
+        let prevQuotedName = '"' + previousName + '"';
+        let currentQuotedName = '"' + currentName + '"';
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    updateCar(currName : ${prevQuatedName}, newName : ${currentQuatedName}) {
+                    updateCar(currName : ${prevQuotedName}, newName : ${currentQuotedName}, newSpeed: ${currentSpeed}) {
                         name
+                        speed
                     }
                 }
             `,

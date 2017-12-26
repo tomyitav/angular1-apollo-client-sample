@@ -3,7 +3,10 @@ export class CarsController {
     constructor($scope, ApolloCarService) {
         this.scope= $scope
         this.ApolloCarService= ApolloCarService;
-        this.car = {};
+        this.car = {
+            name: "",
+            speed: ""
+        };
         this.cars = [];
         this.fetchCarsList();
         this.startSubscriptions();
@@ -41,7 +44,7 @@ export class CarsController {
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
-                    console.log('Addddd to car list...');
+                    console.log('Add to car list...');
                     this.cars.push(data.carAdded);
                     this.scope.$apply();
                     return data;
@@ -71,6 +74,7 @@ export class CarsController {
         this.cars.forEach(car => {
             if(car._id === updatedCar._id) {
                 car.name = updatedCar.name;
+                car.speed = updatedCar.speed;
                 this.scope.$apply();
             }
         })
@@ -90,6 +94,7 @@ export class CarsController {
 
     showAddForm (){
         this.addFormShow = true;
+        this.clearCarField();
     }
     hideAddForm (){
         this.addFormShow = false;
@@ -98,14 +103,21 @@ export class CarsController {
 
     showEditForm (car){
         this.editFormShow = true;
-        this.editedCarName = car.name;
         this.editedCarId = car.id;
+        this.editedCarName = car.name;
+        this.editedCarSpeed = car.speed;
+        this.clearCarField();
+
+    }
+
+    clearCarField() {
+        this.car.name = '';
+        this.car.speed = '';
     }
 
     addNewCar (car) {
-        this.ApolloCarService.addNewCar(this.car).then(result => {
+        this.ApolloCarService.addNewCar(this.car).then(() => {
             this.fetchCarsList();
-            this.car.name = ''
             this.addFormShow = false;
         });
     };
@@ -113,9 +125,14 @@ export class CarsController {
     editCar (car) {
         car.id = this.editedCarId;
         console.log(car);
-        this.ApolloCarService.editCar(this.editedCarName, this.car.name).then(result => {
+        if (!this.car.name) {
+            this.car.name = this.editedCarName;
+        }
+        if (!this.car.speed) {
+            this.car.speed = this.editedCarSpeed;
+        }
+        this.ApolloCarService.editCar(this.editedCarName, this.car.name, this.car.speed).then(() => {
             this.fetchCarsList();
-            this.car.name = ''
             this.addFormShow = false;
         });
         this.editFormShow = false;
@@ -126,6 +143,6 @@ export class CarsController {
             .then(result => {
                 console.log("After delete - ", name)
             })
-        this.car.name = '';
+        this.clearCarField();
     }
 };

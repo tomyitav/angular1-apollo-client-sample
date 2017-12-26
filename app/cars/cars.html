@@ -1,4 +1,4 @@
-<div class="row" >
+<div class="row">
     <div class="container">
         <div class="large-10 columns">
             <h2>Number of cars: {{$ctrl.cars.length}}</h2>
@@ -7,6 +7,7 @@
                 <tr>
                     <th width="200px">Id</th>
                     <th width="230px">Name</th>
+                    <th width="230px">Speed</th>
                     <!--<th width="25%">email</th>-->
                     <th width="25%">Actions</th>
                 </tr>
@@ -15,8 +16,10 @@
                 <tr ng-repeat="car in $ctrl.cars">
                     <td><a href="#">{{car._id}}</a></td>
                     <td>{{car.name}}</td>
+                    <td>{{car.speed}}</td>
                     <td><a class="btn btn-success" ng-click="$ctrl.showEditForm(car)" name={{car.name}}>Edit</a>
-                        <a class="btn btn-danger" title="Sure???" ng-click="$ctrl.removeCar(car.name)" data-toggle="confirmation"
+                        <a class="btn btn-danger" title="Sure???" ng-click="$ctrl.removeCar(car.name)"
+                           data-toggle="confirmation"
                            data-singleton="true" data-popout="true">Delete</a></td>
                 </tr>
                 </tbody>
@@ -27,9 +30,13 @@
                     <label>Name:
                         <input type="text" ng-model="$ctrl.car.name" placeholder="car name" class="form-control"/>
                     </label>
+                    <label>Speed:
+                        <input type="text" ng-model="$ctrl.car.speed" placeholder="car speed" class="form-control"/>
+                    </label>
 
                     <div>
-                        <input type="submit" value="Add" class="btn btn-info" ng-disabled="!$ctrl.car.name" ng-click="$ctrl.addNewCar($ctrl.car)"/>
+                        <input type="submit" value="Add" class="btn btn-info" ng-disabled="!$ctrl.car.name"
+                               ng-click="$ctrl.addNewCar($ctrl.car)"/>
                     </div>
                 </div>
             </form>
@@ -37,17 +44,26 @@
                 <div class="form-group">
                     <h3>Edit car</h3>
                     <label>Name:
-                        <input type="text" ng-model="$ctrl.car.name" placeholder={{$ctrl.editedCarName}} class="form-control"/>
+                        <input type="text" ng-model="$ctrl.car.name" placeholder={{$ctrl.editedCarName}}
+                               class="form-control"/>
+                    </label>
+                    <label>
+                        Speed:
+                        <input type="text" ng-model="$ctrl.car.speed" placeholder={{$ctrl.editedCarSpeed}}
+                               class="form-control"/>
                     </label>
 
                     <div>
-                        <input type="submit" value="Edit" class="btn btn-info" ng-disabled="!$ctrl.car.name" ng-click="$ctrl.editCar($ctrl.car)"/>
+                        <input type="submit" value="Edit" class="btn btn-info" ng-disabled="!$ctrl.car.name && !$ctrl.car.speed"
+                               ng-click="$ctrl.editCar($ctrl.car)"/>
                     </div>
                 </div>
             </form>
             <div class="small-12 large-2 columns">
-                <a class="btn btn-primary" ng-click="$ctrl.showAddForm()" ng-hide="$ctrl.addFormShow || $ctrl.editFormShow">+</a>
-                <a class="btn btn-primary" ng-click="$ctrl.hideAddForm()" ng-show="$ctrl.addFormShow || $ctrl.editFormShow">-</a>
+                <a class="btn btn-primary" ng-click="$ctrl.showAddForm()"
+                   ng-hide="$ctrl.addFormShow || $ctrl.editFormShow">+</a>
+                <a class="btn btn-primary" ng-click="$ctrl.hideAddForm()"
+                   ng-show="$ctrl.addFormShow || $ctrl.editFormShow">-</a>
             </div>
         </div>
     </div>
