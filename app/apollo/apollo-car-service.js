@@ -76,11 +76,14 @@ class ApolloCarService {
     }
 
     addNewCar (car) {
-        let quotedName = '"' + car.name + '"';
+        let addCarParams = 'name: "' + car.name + '"';
+        if (car.speed) {
+            addCarParams += ', speed: ' + car.speed;
+        }
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    addCar(name: ${quotedName}, speed: ${car.speed}) {
+                    addCar(${addCarParams}) {
                         name
                         speed
                     }
@@ -103,12 +106,12 @@ class ApolloCarService {
             `,
         })
     }
-    deleteCar (name) {
-        let quatedName = '"' + name + '"';
+    deleteCar(name) {
+        let quotedName = '"' + name + '"';
         return this.client.mutate({
             mutation: gql`
                 mutation {
-                    deleteCar(name : ${quatedName}) {
+                    deleteCar(name : ${quotedName}) {
                         _id
                         name
                     }
