@@ -3,7 +3,10 @@ export class CarsController {
     constructor($scope, ApolloCarService) {
         this.scope= $scope
         this.ApolloCarService= ApolloCarService;
-        this.car = {};
+        this.car = {
+            name: "",
+            speed: ""
+        };
         this.cars = [];
         this.fetchCarsList();
         this.startSubscriptions();
@@ -41,9 +44,11 @@ export class CarsController {
             .subscribe({
                 next: data => {
                     console.log('Got data- ', data);
-                    console.log('Addddd to car list...');
-                    this.cars.push(data.carAdded);
-                    this.scope.$apply();
+                    console.log('Add to car list...');
+                    if (data.carAdded) {
+                        this.cars.push(data.carAdded);
+                        this.scope.$apply();
+                    }
                     return data;
                 },
                 error: (err) => {
@@ -71,13 +76,13 @@ export class CarsController {
         this.cars.forEach(car => {
             if(car._id === updatedCar._id) {
                 car.name = updatedCar.name;
+                car.speed = updatedCar.speed;
                 this.scope.$apply();
             }
         })
     }
     updateCarsByDelete(deletedCar) {
-        let indexToRemove = 0;
-        indexToRemove = this.cars.findIndex((car) => car._id === deletedCar._id);
+        let indexToRemove = this.cars.findIndex((car) => car._id === deletedCar._id);
         this.cars.splice(indexToRemove, 1);
         this.scope.$apply();
     }
@@ -88,44 +93,44 @@ export class CarsController {
         this.cars = JSON.parse( JSON.stringify( immutableCars ));
     }
 
-    showAddForm (){
-        this.addFormShow = true;
-    }
-    hideAddForm (){
-        this.addFormShow = false;
-        this.editFormShow = false;
+    useFieldsCurrentCar (car){
+        this.editedCarId = car.id;
+        this.editedCarName = car.name;
+        this.editedCarSpeed = car.speed;
+        this.clearCarField();
+
     }
 
-    showEditForm (car){
-        this.editFormShow = true;
-        this.editedCarName = car.name;
-        this.editedCarId = car.id;
+    clearCarField() {
+        this.car.name = '';
+        this.car.speed = '';
     }
 
     addNewCar (car) {
-        this.ApolloCarService.addNewCar(this.car).then(result => {
-            this.fetchCarsList();
-            this.car.name = ''
-            this.addFormShow = false;
+        this.ApolloCarService.addNewCar(car).then(() => {
+            this.clearCarField();
         });
     };
 
     editCar (car) {
         car.id = this.editedCarId;
         console.log(car);
-        this.ApolloCarService.editCar(this.editedCarName, this.car.name).then(result => {
-            this.fetchCarsList();
-            this.car.name = ''
-            this.addFormShow = false;
+        if (!car.name) {
+            car.name = this.editedCarName;
+        }
+        if (!car.speed) {
+            car.speed = this.editedCarSpeed;
+        }
+        this.ApolloCarService.editCar(this.editedCarName, car.name, car.speed).then(() => {
+            this.clearCarField();
         });
-        this.editFormShow = false;
     };
 
     removeCar (name) {
         this.ApolloCarService.deleteCar(name)
             .then(result => {
                 console.log("After delete - ", name)
-            })
-        this.car.name = '';
+                this.clearCarField();
+            });
     }
 };
